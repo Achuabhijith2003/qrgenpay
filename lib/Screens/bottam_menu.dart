@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:paymentqr/Screens/home.dart';
 import 'package:paymentqr/Screens/settings.dart';
 import 'package:paymentqr/Screens/transaction.dart';
@@ -22,36 +23,29 @@ class _BottamMenuState extends State<BottamMenu> {
         mainAxisSize: MainAxisSize.min,
         children: [
           BottomNavigationBar(
+            selectedLabelStyle: GoogleFonts.akshar(),
+            unselectedLabelStyle: GoogleFonts.akshar(),
             selectedFontSize: 20,
-            selectedItemColor: Colors.black,
+            selectedItemColor: Colors.white,
             enableFeedback: true,
-            backgroundColor: Color(
-                int.parse("#f5f3ef".substring(1, 7), radix: 16) + 0xFF000000),
+            backgroundColor: Colors.amberAccent,
             showUnselectedLabels: true,
             type: BottomNavigationBarType.fixed,
             items: const [
               BottomNavigationBarItem(
-                  icon: Icon(
-                    Icons.home,
-                    // color: Color(
-                    //     int.parse("#f5f3ef".substring(1, 7), radix: 16) +
-                    //         0xFF000000),
-                  ),
-                  label: "Home"),
+                icon: Icon(
+                  Icons.home,
+                ),
+                label: "Home",
+              ),
               BottomNavigationBarItem(
                   icon: Icon(
                     Icons.history,
-                    // color: Color(
-                    //     int.parse("#f5f3ef".substring(1, 7), radix: 16) +
-                    //         0xFF000000),
                   ),
                   label: "Transaction"),
               BottomNavigationBarItem(
                   icon: Icon(
                     Icons.settings,
-                    // color: Color(
-                    //     int.parse("#f5f3ef".substring(1, 7), radix: 16) +
-                    //         0xFF000000),
                   ),
                   label: "Settings"),
             ],
