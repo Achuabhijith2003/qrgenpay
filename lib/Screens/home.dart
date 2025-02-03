@@ -58,8 +58,7 @@ class _HomeState extends State<Home> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => QrProfile(profile.name,
-                                    profile.upid))); // Pass name and upid
+                                builder: (context) => QrProfile(name: profile.name,upid: profile.upid,))); // Pass name and upid
                       },
                     );
                   },
