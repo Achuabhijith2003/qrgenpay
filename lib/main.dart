@@ -1,8 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:paymentqr/Servies/DB/data.dart';
 import 'package:paymentqr/splash.dart';
 
-void main(List<String> args) {
+late Box box;
+void main(List<String> args) async{
   WidgetsFlutterBinding.ensureInitialized();
+   // hive init
+  await Hive.initFlutter();
+  Hive.registerAdapter(DatapaymentAdapter());
+
+  box = await Hive.openBox('payment_qr_data');
   runApp(const qrgenpay());
 }
 
