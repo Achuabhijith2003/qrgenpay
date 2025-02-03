@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:paymentqr/Componets/textfiled.dart';
+import 'package:paymentqr/Servies/DB/opteration.dart';
 
 class Qrgen extends StatefulWidget {
   const Qrgen({super.key});
@@ -8,6 +9,8 @@ class Qrgen extends StatefulWidget {
   @override
   State<Qrgen> createState() => _QrgenState();
 }
+
+Operation operation = Operation();
 
 TextEditingController namecontroller = TextEditingController();
 TextEditingController upicontroller = TextEditingController();
@@ -51,6 +54,7 @@ class _QrgenState extends State<Qrgen> {
             child: TextButton(
                 onPressed: () {
                   createqr(namecontroller, upicontroller);
+                  Navigator.of(context).pop();
                 },
                 child: Text("Create QR Profile",
                     style: GoogleFonts.akshar(
@@ -65,15 +69,16 @@ class _QrgenState extends State<Qrgen> {
 
   createqr(TextEditingController namecontroller,
       TextEditingController upicontroller) {
-    String name = namecontroller.text;
-    String upi = upicontroller.text;
+    String name = namecontroller.text.trim();
+    String upi = upicontroller.text.trim();
     if (name.isEmpty || upi.isEmpty) {
       _showAlertDialog(context);
       return;
     }
+    operation.addpaymentdata(name, upi);
+    // operation.showpaymentdata();
     // String qrdata = "upi://pay?name=$name&pa=$upi";
-    String qrdata = "upi://pay?name=$name&pa=$upi";
-    return qrdata;
+    // return qrdata;
   }
 
   void _showAlertDialog(BuildContext context) {
