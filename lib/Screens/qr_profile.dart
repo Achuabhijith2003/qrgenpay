@@ -54,6 +54,7 @@ class _QrProfileState extends State<QrProfile> {
                   } else {
                     value = double.parse(amountcontroller.text.trim());
                     showModalBottomSheet(
+                      isDismissible: false,
                       context: context,
                       builder: (context) {
                         return generateqr(value);
@@ -114,6 +115,7 @@ class _QrProfileState extends State<QrProfile> {
           children: [
             ElevatedButton.icon(
               onPressed: () {
+                amountcontroller.clear();
                 Navigator.pop(context);
               },
               icon: Icon(

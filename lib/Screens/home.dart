@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:paymentqr/Screens/qr_profile.dart';
 import 'package:paymentqr/Screens/qrgen.dart';
@@ -54,11 +53,20 @@ class _HomeState extends State<Home> {
                           Text(profile.name), // Correct way to access property
                       subtitle:
                           Text(profile.upid), // Correct way to access property
+                      trailing: IconButton(  //delete button
+                        icon: Icon(Icons.delete),
+                        onPressed: () {
+                          box.deleteAt(index);
+                        },
+                      ),
                       onTap: () {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => QrProfile(name: profile.name,upid: profile.upid,))); // Pass name and upid
+                                builder: (context) => QrProfile(
+                                      name: profile.name,
+                                      upid: profile.upid,
+                                    ))); // Pass name and upid
                       },
                     );
                   },
