@@ -43,11 +43,11 @@ class _BottamMenuState extends State<BottamMenu> {
                     Icons.history,
                   ),
                   label: "Transaction"),
-              BottomNavigationBarItem(
-                  icon: Icon(
-                    Icons.settings,
-                  ),
-                  label: "Settings"),
+              // BottomNavigationBarItem(
+              //     icon: Icon(
+              //       Icons.settings,
+              //     ),
+              //     label: "Settings"),
             ],
             currentIndex: _cureentindex,
             onTap: (value) {

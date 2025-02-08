@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:paymentqr/Componets/textfiled.dart';
-import 'package:paymentqr/Servies/DB/opteration.dart';
+import 'package:paymentqr/Servies/opteration.dart';
 
 class Qrgen extends StatefulWidget {
   const Qrgen({super.key});

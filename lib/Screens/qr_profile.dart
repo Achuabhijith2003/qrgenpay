@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:paymentqr/Componets/textfiled.dart';
+import 'package:paymentqr/Screens/qrgen.dart';
+import 'package:paymentqr/Servies/DB/trasationdata.dart';
 import 'package:upi_payment_qrcode_generator/upi_payment_qrcode_generator.dart';
 
 class QrProfile extends StatefulWidget {
-  final String name, upid;
-  const QrProfile({super.key, required this.name, required this.upid});
+  final String name, upid, ids;
+  const QrProfile(
+      {super.key, required this.name, required this.upid, required this.ids});
 
   @override
   // ignore: no_logic_in_create_state
@@ -17,6 +21,13 @@ TextEditingController amountcontroller = TextEditingController();
 class _QrProfileState extends State<QrProfile> {
   final String name;
   final String upid;
+
+  // @override
+  // void dispose() {
+  //   amountcontroller.dispose();
+  //   amountcontroller.clear();
+  //   super.dispose();
+  // }
 
   _QrProfileState({required this.name, required this.upid});
   @override
@@ -89,6 +100,10 @@ class _QrProfileState extends State<QrProfile> {
               ),
             ),
           ),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 40.0),
+            child: transactionHistory(),
+          )
         ],
       ),
     );
@@ -116,6 +131,8 @@ class _QrProfileState extends State<QrProfile> {
             ElevatedButton.icon(
               onPressed: () {
                 amountcontroller.clear();
+                operation.addtransationhistory(
+                    widget.ids, amount, DateTime.now());
                 Navigator.pop(context);
               },
               icon: Icon(
@@ -161,6 +178,62 @@ class _QrProfileState extends State<QrProfile> {
               ),
             ),
           ],
+        ),
+      ],
+    );
+  }
+
+  Widget transactionHistory() {
+    return Column(
+      children: [
+        Text(
+          "Transaction History",
+          style: GoogleFonts.akshar(
+            color: Colors.black,
+            fontWeight: FontWeight.bold,
+            fontSize: 20,
+          ),
+        ),
+        ValueListenableBuilder(
+          valueListenable:
+              Hive.box("payment_qr_transtaionhistory").listenable(),
+          builder: (context, box, child) {
+            if (box.isEmpty) {
+              return Center(child: Text("No transaction available!"));
+            }
+            return ListView.builder(
+              itemCount: box.length,
+              shrinkWrap: true, // Ensures proper height calculation
+              itemBuilder: (context, index) {
+                var transaction = box.getAt(index)
+                    as Transation_data; // Cast to Transation_data
+                return ListTile(
+                  leading: Icon(Icons.transfer_within_a_station),
+                  title: Text(transaction.amount
+                      .toString()), // Correct way to access property
+                  subtitle: Text(transaction
+                      .transationid), // Correct way to access property
+                  // trailing: IconButton(
+                  //   // Delete button
+                  //   icon: Icon(Icons.delete),
+                  //   onPressed: () {
+                  //     box.deleteAt(index);
+                  //   },
+                  // ),
+                  onTap: () {
+                    // Navigator.push(
+                    //     context,
+                    //     MaterialPageRoute(
+                    //         builder: (context) => QrProfile(
+                    //               name: profile.name,
+                    //               upid: profile.upid,
+                    //               ids: profile.id,
+                    //             ))); // Pass name and upid
+                  },
+                );
+              },
+            );
+          },
         ),
       ],
     );

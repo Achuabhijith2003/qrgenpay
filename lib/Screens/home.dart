@@ -53,7 +53,8 @@ class _HomeState extends State<Home> {
                           Text(profile.name), // Correct way to access property
                       subtitle:
                           Text(profile.upid), // Correct way to access property
-                      trailing: IconButton(  //delete button
+                      trailing: IconButton(
+                        //delete button
                         icon: Icon(Icons.delete),
                         onPressed: () {
                           box.deleteAt(index);
@@ -66,6 +67,7 @@ class _HomeState extends State<Home> {
                                 builder: (context) => QrProfile(
                                       name: profile.name,
                                       upid: profile.upid,
+                                      ids: profile.id,
                                     ))); // Pass name and upid
                       },
                     );

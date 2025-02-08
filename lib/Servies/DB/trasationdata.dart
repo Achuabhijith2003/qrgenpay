@@ -1,26 +1,22 @@
 import 'package:hive/hive.dart';
 
-part 'data.g.dart';
+part 'trasationdata.g.dart';
 
-@HiveType(typeId: 0)
+@HiveType(typeId: 1)
 // ignore: camel_case_types
-class Data_payment {
-  Data_payment({
+class Transation_data {
+  Transation_data({
     required this.id,
-    required this.name,
-    required this.upid,
+    required this.transationid,
+    required this.amount,
     required this.createdtime,
   });
   @HiveField(0)
   String id;
   @HiveField(1)
-  String name;
+  String transationid;
   @HiveField(2)
-  String upid;
+  String amount;
   @HiveField(3)
   DateTime createdtime;
 }
-
-
-
-
