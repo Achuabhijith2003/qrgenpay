@@ -207,30 +207,36 @@ class _QrProfileState extends State<QrProfile> {
               itemBuilder: (context, index) {
                 var transaction = box.getAt(index)
                     as Transation_data; // Cast to Transation_data
-                return ListTile(
-                  leading: Icon(Icons.transfer_within_a_station),
-                  title: Text(transaction.amount
-                      .toString()), // Correct way to access property
-                  subtitle: Text(transaction
-                      .transationid), // Correct way to access property
-                  // trailing: IconButton(
-                  //   // Delete button
-                  //   icon: Icon(Icons.delete),
-                  //   onPressed: () {
-                  //     box.deleteAt(index);
-                  //   },
-                  // ),
-                  onTap: () {
-                    // Navigator.push(
-                    //     context,
-                    //     MaterialPageRoute(
-                    //         builder: (context) => QrProfile(
-                    //               name: profile.name,
-                    //               upid: profile.upid,
-                    //               ids: profile.id,
-                    //             ))); // Pass name and upid
-                  },
-                );
+                if (transaction.id != widget.ids) {
+                  return Center(child: Text("No transaction available!"));
+                }
+                if (transaction.id == widget.ids) {
+                  return ListTile(
+                    leading: Icon(Icons.transfer_within_a_station),
+                    title: Text(transaction.amount
+                        .toString()), // Correct way to access property
+                    subtitle: Text(transaction
+                        .transationid), // Correct way to access property
+                    // trailing: IconButton(
+                    //   // Delete button
+                    //   icon: Icon(Icons.delete),
+                    //   onPressed: () {
+                    //     box.deleteAt(index);
+                    //   },
+                    // ),
+                    onTap: () {
+                      // Navigator.push(
+                      //     context,
+                      //     MaterialPageRoute(
+                      //         builder: (context) => QrProfile(
+                      //               name: profile.name,
+                      //               upid: profile.upid,
+                      //               ids: profile.id,
+                      //             ))); // Pass name and upid
+                    },
+                  );
+                }
+                return Container();
               },
             );
           },
