@@ -19,22 +19,25 @@ class TransationdataAdapter extends TypeAdapter<Transation_data> {
     return Transation_data(
       id: fields[0] as String,
       transationid: fields[1] as String,
-      amount: fields[2] as String,
-      createdtime: fields[3] as DateTime,
+      name: fields[2] as String,
+      amount: fields[3] as String,
+      createdtime: fields[4] as DateTime,
     );
   }
 
   @override
   void write(BinaryWriter writer, Transation_data obj) {
     writer
-      ..writeByte(4)
+      ..writeByte(5)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
       ..write(obj.transationid)
       ..writeByte(2)
-      ..write(obj.amount)
+      ..write(obj.name)
       ..writeByte(3)
+      ..write(obj.amount)
+      ..writeByte(4)
       ..write(obj.createdtime);
   }
 

@@ -14,7 +14,7 @@ class BottamMenu extends StatefulWidget {
 class _BottamMenuState extends State<BottamMenu> {
   int _cureentindex = 0;
 
-  List<Widget> body = const [Home(), Transaction(), Settings()];
+  List<Widget> body = [const Home(), TransactionScreen(), const Settings()];
   @override
   Widget build(BuildContext context) {
     return Scaffold(

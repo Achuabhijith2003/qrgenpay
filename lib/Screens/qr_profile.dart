@@ -100,9 +100,13 @@ class _QrProfileState extends State<QrProfile> {
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(bottom: 40.0),
-            child: transactionHistory(),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.only(bottom: 40.0),
+              child: SingleChildScrollView(
+                child: transactionHistory(),
+              ),
+            ),
           )
         ],
       ),
@@ -130,9 +134,9 @@ class _QrProfileState extends State<QrProfile> {
           children: [
             ElevatedButton.icon(
               onPressed: () {
-                amountcontroller.clear();
+                // amountcontroller.clear();
                 operation.addtransationhistory(
-                    widget.ids, amount, DateTime.now());
+                    widget.ids, widget.name, amount, DateTime.now());
                 Navigator.pop(context);
               },
               icon: Icon(
@@ -207,9 +211,9 @@ class _QrProfileState extends State<QrProfile> {
               itemBuilder: (context, index) {
                 var transaction = box.getAt(index)
                     as Transation_data; // Cast to Transation_data
-                if (transaction.id != widget.ids) {
-                  return Center(child: Text("No transaction available!"));
-                }
+                // if (transaction.id != widget.ids) {
+                //   return Center(child: Text("No transaction available!"));
+                // }
                 if (transaction.id == widget.ids) {
                   return ListTile(
                     leading: Icon(Icons.transfer_within_a_station),
@@ -217,13 +221,8 @@ class _QrProfileState extends State<QrProfile> {
                         .toString()), // Correct way to access property
                     subtitle: Text(transaction
                         .transationid), // Correct way to access property
-                    // trailing: IconButton(
-                    //   // Delete button
-                    //   icon: Icon(Icons.delete),
-                    //   onPressed: () {
-                    //     box.deleteAt(index);
-                    //   },
-                    // ),
+                    trailing: Text(
+                        "${transaction.createdtime.day}-${transaction.createdtime.month}-${transaction.createdtime.year}"), // date
                     onTap: () {
                       // Navigator.push(
                       //     context,

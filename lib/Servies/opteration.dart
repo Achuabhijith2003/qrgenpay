@@ -18,7 +18,7 @@ class Operation {
     }
   }
 
-  addtransationhistory(ids, amount, createdtime) {
+  addtransationhistory(ids,name, amount, createdtime) {
     try {
       const uuid = Uuid();
       final transationids = uuid.v1();
@@ -27,6 +27,7 @@ class Operation {
           Transation_data(
               id: ids,
               transationid: transationids,
+              name: name,
               amount: "$amount",
               createdtime: createdtime));
     } catch (e) {

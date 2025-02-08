@@ -8,6 +8,7 @@ class Transation_data {
   Transation_data({
     required this.id,
     required this.transationid,
+    required this.name,
     required this.amount,
     required this.createdtime,
   });
@@ -15,8 +16,10 @@ class Transation_data {
   String id;
   @HiveField(1)
   String transationid;
-  @HiveField(2)
-  String amount;
+   @HiveField(2)
+  String name;
   @HiveField(3)
+  String amount;
+  @HiveField(4)
   DateTime createdtime;
 }
