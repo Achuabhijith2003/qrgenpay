@@ -14,7 +14,7 @@ class BottamMenu extends StatefulWidget {
 class _BottamMenuState extends State<BottamMenu> {
   int _cureentindex = 0;
 
-  List<Widget> body = const [Home(), Transaction(), Settings()];
+  List<Widget> body = [const Home(), TransactionScreen(), const Settings()];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,11 +43,11 @@ class _BottamMenuState extends State<BottamMenu> {
                     Icons.history,
                   ),
                   label: "Transaction"),
-              BottomNavigationBarItem(
-                  icon: Icon(
-                    Icons.settings,
-                  ),
-                  label: "Settings"),
+              // BottomNavigationBarItem(
+              //     icon: Icon(
+              //       Icons.settings,
+              //     ),
+              //     label: "Settings"),
             ],
             currentIndex: _cureentindex,
             onTap: (value) {
