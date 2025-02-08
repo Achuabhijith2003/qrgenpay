@@ -134,7 +134,7 @@ class _QrProfileState extends State<QrProfile> {
           children: [
             ElevatedButton.icon(
               onPressed: () {
-                // amountcontroller.clear();
+                amountcontroller.clear();
                 operation.addtransationhistory(
                     widget.ids, widget.name, amount, DateTime.now());
                 Navigator.pop(context);
@@ -188,59 +188,63 @@ class _QrProfileState extends State<QrProfile> {
   }
 
   Widget transactionHistory() {
-    return Column(
-      children: [
-        Text(
-          "Transaction History",
-          style: GoogleFonts.akshar(
-            color: Colors.black,
-            fontWeight: FontWeight.bold,
-            fontSize: 20,
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          Text(
+            "Transaction History",
+            style: GoogleFonts.akshar(
+              color: Colors.black,
+              fontWeight: FontWeight.bold,
+              fontSize: 20,
+            ),
           ),
-        ),
-        ValueListenableBuilder(
-          valueListenable:
-              Hive.box("payment_qr_transtaionhistory").listenable(),
-          builder: (context, box, child) {
-            if (box.isEmpty) {
-              return Center(child: Text("No transaction available!"));
-            }
-            return ListView.builder(
-              itemCount: box.length,
-              shrinkWrap: true, // Ensures proper height calculation
-              itemBuilder: (context, index) {
-                var transaction = box.getAt(index)
-                    as Transation_data; // Cast to Transation_data
-                // if (transaction.id != widget.ids) {
-                //   return Center(child: Text("No transaction available!"));
-                // }
-                if (transaction.id == widget.ids) {
-                  return ListTile(
-                    leading: Icon(Icons.transfer_within_a_station),
-                    title: Text(transaction.amount
-                        .toString()), // Correct way to access property
-                    subtitle: Text(transaction
-                        .transationid), // Correct way to access property
-                    trailing: Text(
-                        "${transaction.createdtime.day}-${transaction.createdtime.month}-${transaction.createdtime.year}"), // date
-                    onTap: () {
-                      // Navigator.push(
-                      //     context,
-                      //     MaterialPageRoute(
-                      //         builder: (context) => QrProfile(
-                      //               name: profile.name,
-                      //               upid: profile.upid,
-                      //               ids: profile.id,
-                      //             ))); // Pass name and upid
-                    },
-                  );
-                }
-                return Container();
-              },
-            );
-          },
-        ),
-      ],
+          ValueListenableBuilder(
+            valueListenable:
+                Hive.box("payment_qr_transtaionhistory").listenable(),
+            builder: (context, box, child) {
+              if (box.isEmpty) {
+                return Center(child: Text("No transaction available!"));
+              }
+              return ListView.builder(
+                itemCount: box.length,
+                shrinkWrap: true, // Ensures proper height calculation
+                physics:
+                    NeverScrollableScrollPhysics(), // Prevents ListView from scrolling
+                itemBuilder: (context, index) {
+                  var transaction = box.getAt(index)
+                      as Transation_data; // Cast to Transation_data
+                  // if (transaction.id != widget.ids) {
+                  //   return Center(child: Text("No transaction available!"));
+                  // }
+                  if (transaction.id == widget.ids) {
+                    return ListTile(
+                      leading: Icon(Icons.transfer_within_a_station),
+                      title: Text(transaction.amount
+                          .toString()), // Correct way to access property
+                      subtitle: Text(transaction
+                          .transationid), // Correct way to access property
+                      trailing: Text(
+                          "${transaction.createdtime.day}-${transaction.createdtime.month}-${transaction.createdtime.year}"), // date
+                      onTap: () {
+                        // Navigator.push(
+                        //     context,
+                        //     MaterialPageRoute(
+                        //         builder: (context) => QrProfile(
+                        //               name: profile.name,
+                        //               upid: profile.upid,
+                        //               ids: profile.id,
+                        //             ))); // Pass name and upid
+                      },
+                    );
+                  }
+                  return Container();
+                },
+              );
+            },
+          ),
+        ],
+      ),
     );
   }
 }

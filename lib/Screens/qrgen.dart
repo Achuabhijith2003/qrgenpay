@@ -77,6 +77,8 @@ class _QrgenState extends State<Qrgen> {
     }
     operation.addpaymentdata(name, upi);
     operation.showpaymentdata();
+    namecontroller.clear();
+    upicontroller.clear();
     // String qrdata = "upi://pay?name=$name&pa=$upi";
     // return qrdata;
   }
