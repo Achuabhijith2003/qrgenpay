@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:paymentqr/Servies/DB/data.dart';
 import 'package:paymentqr/Servies/DB/trasationdata.dart';
@@ -14,6 +15,9 @@ void main(List<String> args) async {
 
   box = await Hive.openBox('payment_qr_data');
   boxtra = await Hive.openBox('payment_qr_transtaionhistory');
+  // init admob
+  MobileAds.instance.initialize();
+  // run app
   runApp(const qrgenpay());
 }
 

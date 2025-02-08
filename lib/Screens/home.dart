@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:paymentqr/Screens/qr_profile.dart';
 import 'package:paymentqr/Screens/qrgen.dart';
 import 'package:paymentqr/Servies/DB/data.dart';
+import 'package:paymentqr/Servies/adsHelper.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -13,6 +15,31 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  BannerAd? _bannerAd;
+
+  @override
+@override
+void initState() {
+  super.initState();
+
+  // TODO: Load a banner ad
+  BannerAd(
+    adUnitId: AdHelper.bannerAdUnitId,
+    request: AdRequest(),
+    size: AdSize.banner,
+    listener: BannerAdListener(
+      onAdLoaded: (ad) {
+        setState(() {
+          _bannerAd = ad as BannerAd;
+        });
+      },
+      onAdFailedToLoad: (ad, err) {
+        print('Failed to load a banner ad: ${err.message}');
+        ad.dispose();
+      },
+    ),
+  ).load();
+}
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -103,6 +130,15 @@ class _HomeState extends State<Home> {
               ),
             ),
           ),
+           if (_bannerAd != null)
+            Align(
+              alignment: Alignment.topCenter,
+              child: Container(
+                width: _bannerAd!.size.width.toDouble(),
+                height: _bannerAd!.size.height.toDouble(),
+                child: AdWidget(ad: _bannerAd!),
+              ),
+            ),
         ],
       ),
     );
