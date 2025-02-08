@@ -17,7 +17,6 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   BannerAd? _bannerAd;
 
-  @override
 @override
 void initState() {
   super.initState();
